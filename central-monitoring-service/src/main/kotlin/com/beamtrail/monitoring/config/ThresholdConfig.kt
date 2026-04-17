@@ -4,6 +4,6 @@ import io.smallrye.config.ConfigMapping
 
 @ConfigMapping(prefix = "threshold")
 interface ThresholdConfig {
-    fun temperature(): Double
-    fun humidity(): Double
+    /** Map of sensor type name → max allowed scalar value, e.g. TEMPERATURE → 35.0. */
+    fun sensors(): Map<String, Double>
 }

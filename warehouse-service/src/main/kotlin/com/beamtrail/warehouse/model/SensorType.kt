@@ -1,11 +1,6 @@
 package com.beamtrail.warehouse.model
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonValue
 
-enum class SensorType(val unit: String) {
-    @JsonProperty("TEMPERATURE")
-    TEMPERATURE(unit = "°C"),
-
-    @JsonProperty("HUMIDITY")
-    HUMIDITY(unit = "%");
-}
+@JvmInline
+value class SensorType(@JsonValue val name: String)

@@ -31,6 +31,8 @@ services:
     ports:
       - "3344:3344/udp"
       - "3355:3355/udp"
+      - "3366:3366/udp"
+      - "3377:3377/udp"
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:29092
       WAREHOUSE_ID: warehouse-1
@@ -45,8 +47,8 @@ services:
     container_name: central-monitoring-service
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:29092
-      THRESHOLD_TEMPERATURE: "35.0"
-      THRESHOLD_HUMIDITY: "50.0"
+      THRESHOLD_SENSORS_TEMPERATURE: "35.0"
+      THRESHOLD_SENSORS_HUMIDITY: "50.0"
     depends_on:
       kafka:
         condition: service_healthy

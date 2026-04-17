@@ -24,4 +24,6 @@ WORKDIR /app
 COPY --from=build /app/warehouse-service/build/quarkus-app /app
 EXPOSE 3344/udp
 EXPOSE 3355/udp
+EXPOSE 3366/udp
+EXPOSE 3377/udp
 CMD ["java", "-jar", "quarkus-run.jar"]

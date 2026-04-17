@@ -4,6 +4,7 @@ import com.beamtrail.warehouse.kafka.MeasurementEmitter
 import com.beamtrail.warehouse.model.SensorId
 import com.beamtrail.warehouse.model.SensorMeasurement
 import com.beamtrail.warehouse.model.SensorType
+import com.beamtrail.warehouse.model.SensorValue
 import com.beamtrail.warehouse.model.WarehouseId
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import kotlinx.coroutines.test.runTest
@@ -30,8 +31,8 @@ class MeasurementEmitterTest {
 
         val measurement = SensorMeasurement(
             sensorId = SensorId("t1"),
-            type = SensorType.TEMPERATURE,
-            value = 36.5,
+            type = SensorType("TEMPERATURE"),
+            value = SensorValue.Scalar(36.5, "°C"),
             warehouseId = WarehouseId("warehouse-1")
         )
 
@@ -43,8 +44,8 @@ class MeasurementEmitterTest {
         val json = captor.firstValue
         val deserialized = objectMapper.readValue(json, SensorMeasurement::class.java)
         assertThat(deserialized.sensorId).isEqualTo(SensorId("t1"))
-        assertThat(deserialized.type).isEqualTo(SensorType.TEMPERATURE)
-        assertThat(deserialized.value).isEqualTo(36.5)
+        assertThat(deserialized.type).isEqualTo(SensorType("TEMPERATURE"))
+        assertThat(deserialized.value).isEqualTo(SensorValue.Scalar(36.5, "°C"))
         assertThat(deserialized.warehouseId).isEqualTo(WarehouseId("warehouse-1"))
     }
 
@@ -55,8 +56,8 @@ class MeasurementEmitterTest {
 
         val measurement = SensorMeasurement(
             sensorId = SensorId("h1"),
-            type = SensorType.HUMIDITY,
-            value = 55.0,
+            type = SensorType("HUMIDITY"),
+            value = SensorValue.Scalar(55.0, "%"),
             warehouseId = WarehouseId("warehouse-2")
         )
 
@@ -68,6 +69,7 @@ class MeasurementEmitterTest {
         val json = captor.firstValue
         assertThat(json).contains("\"sensorId\":\"h1\"")
         assertThat(json).contains("\"type\":\"HUMIDITY\"")
-        assertThat(json).contains("\"value\":55.0")
+        assertThat(json).contains("\"kind\":\"scalar\"")
+        assertThat(json).contains("\"amount\":55.0")
     }
 }

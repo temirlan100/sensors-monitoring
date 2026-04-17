@@ -6,6 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty
 data class SensorMeasurement @JsonCreator constructor(
     @param:JsonProperty("sensorId") val sensorId: SensorId,
     @param:JsonProperty("type") val type: SensorType,
-    @param:JsonProperty("value") val value: Double,
+    @param:JsonProperty("value") val value: SensorValue,
     @param:JsonProperty("warehouseId") val warehouseId: WarehouseId
 )
